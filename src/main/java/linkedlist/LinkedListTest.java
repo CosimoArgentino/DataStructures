@@ -4,15 +4,14 @@ public class LinkedListTest {
     public static void main(String[] args){
         LinkedListImpl listImpl = new LinkedListImpl();
         listImpl.addNode(10);
-        listImpl.addNode(20);
-        listImpl.addNode(30);
-        listImpl.addNode(40);
+        listImpl.addNode(78);
+        listImpl.addNode(64);
+        listImpl.addNode(98);
+        System.out.println("Looking for 50... : " + listImpl.search(50));
         listImpl.printLinkedList();
         listImpl.addNodeAtStart(50);
         listImpl.printLinkedList();
-        listImpl.removeNode();
-        listImpl.printLinkedList();
-        listImpl.removeNodeAtCertainIndex(3);
+        listImpl.removeNodeAtIndex(2);
         listImpl.printLinkedList();
     }
 }

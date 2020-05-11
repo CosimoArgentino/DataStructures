@@ -1,13 +1,21 @@
 package linkedlist;
 
+
+/**
+ * author: Cosimo Argentino
+ * For now it's just a starting example.
+ * I'll add Lombok and thread sync to share this list
+ * with multiple threads
+ */
 public class LinkedListImpl {
 
     private Node head = null;
     private Node tail = null;
 
-    /*
-            * Adds node at the end of the current list
-	 */
+    /**
+     * add a node
+     * @param val
+     */
     public void addNode(int val){
         if(head==null){
             Node temp = new Node(val);
@@ -19,9 +27,6 @@ public class LinkedListImpl {
         }
     }
 
-    /*
-     * Adds node at the start of the current list
-     */
     public void addNodeAtStart(int val){
         if(head==null){
             Node temp = new Node(val);
@@ -34,10 +39,7 @@ public class LinkedListImpl {
         }
     }
 
-    /*
-     * Adds node at the certain index.
-     */
-    public void addNodeAtCertainIndex(int val, int index){
+    public void addNodeAtIndex(int val, int index){
         Node temp = head;
         int count = 0;
         while(temp!=null && ++count!=index)
@@ -47,9 +49,7 @@ public class LinkedListImpl {
         temp.setNext(node);
     }
 
-    /*
-     * Removes the last node in the given list and updates tail node
-     */
+
     public void removeNode(){
         Node temp = head;
         while(temp.getNext()!=null && temp.getNext().getNext()!=null){
@@ -59,58 +59,58 @@ public class LinkedListImpl {
         tail = temp;
     }
 
-    /*
-     * Removes the first node in the given list and updates head node
-     *
+
+    /**
+     * This is interesting, indeed with C or C++
+     * we must free the memory after the assignment
      */
-    public void removeNodeAtStart(){
-        //The first node would become zombie and should be garbage collected after the below operation
+    public void removeFirstNode(){
+        //here, garbage collector will destroy the lost object
         head = head.getNext();
     }
 
-    /*
-     * Removes the node at the given index in the given list and updates head node
-     *
-     */
-    public void removeNodeAtCertainIndex(int index){
+
+    public void removeNodeAtIndex(int index){
         Node temp = head;
         int count = 0;
-        while(temp!=null && ++count!=index)
+        while(temp!=null && count!=index) {
             temp = temp.getNext();
-        temp.setValue(temp.getNext().getValue());
-        temp.setNext(temp.getNext().getNext());
+            count++;
+        }
+        if(temp!=null && temp.getNext()!=null) {
+            temp.setValue(temp.getNext().getValue());
+            temp.setNext(temp.getNext().getNext());
+        }
     }
 
-    /*
-     * Checks if a node with the given value exist in the list, returns true or false.
-     * Alternatively you can return the index too.
-     */
+
     public boolean search(int target){
         Node temp = head;
         while(temp!=null){
-            if(temp.getValue() == target)
+            if(temp.getValue() == target){
                 return true;
+            }else{
+                temp = temp.getNext();
+            }
         }
         return false;
 
     }
 
-    /*
-     * Checks if a node with the given value exist in the list, returns the index of the given value in the list.
-     */
+
     public int searchAndReturnIndex(int target){
         Node temp = head;
         int count = 0;
         while(temp!=null){
             count++;
-            if(temp.getValue()==target) return count;
+            if(temp.getValue()==target){
+                return count;
+            }else{
+                temp = temp.getNext();
+            }
         }
         return -1;
     }
-
-    /*
-     * Prints the current list
-     */
 
     public void printLinkedList(){
         System.out.println();
